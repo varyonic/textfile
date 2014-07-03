@@ -17,6 +17,18 @@ class Textfile < Pathname
     sh "cat /dev/null > #{self}"
   end
 
+  def comm(textfile, options)
+    with_tempcopy do |tempcopy|
+      sh "#{COMM_CMD} #{options} #{tempcopy} #{textfile} > #{self}"
+    end
+  end
+
+  # Remove from self lines not matching textfile.
+  # Both self and textfile must be sorted.
+  def intersection(textfile)
+    comm(textfile, '-12')
+  end
+
   # Sorts file and removes any duplicate records.
   def sort(options='')
     options.concat(" --buffer-size=#{@bufsiz}") if @bufsiz
