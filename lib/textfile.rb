@@ -8,7 +8,6 @@ class Textfile < Pathname
   UNIQ_CMD = (RUBY_PLATFORM =~ /darwin/ ? 'guniq' : 'uniq')
 
   def initialize(p1, options = {})
-    @bufsiz = options[:bufsiz]
     @debug = options[:debug]
     super(p1)
   end

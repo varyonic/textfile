@@ -21,7 +21,7 @@ class TestTextfile < Minitest::Test
   should "sort a file with very long records" do
     file = infile(['3'*9999,'2','1'])
 
-    textfile = Textfile.new(file.path, debug: true, bufsiz: 2*4096)
+    textfile = Textfile.new(file.path)
     textfile.sort
 
     file = File.open(textfile)
