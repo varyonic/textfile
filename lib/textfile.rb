@@ -9,6 +9,7 @@ class Textfile < Pathname
 
   def initialize(p1, options = {})
     @debug = options[:debug]
+    @lang = options[:lang]
     super(p1)
   end
 
@@ -22,6 +23,7 @@ class Textfile < Pathname
 
   protected
   def sh(cmd)
+    cmd = "export LC_COLLATE=#{@lang}; #{cmd}" if @lang
     puts cmd if @debug
     %x[ #{cmd} ]
     self
