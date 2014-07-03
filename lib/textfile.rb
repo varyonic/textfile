@@ -13,6 +13,10 @@ class Textfile < Pathname
     super(p1)
   end
 
+  def clear
+    sh "cat /dev/null > #{self}"
+  end
+
   # Sorts file and removes any duplicate records.
   def sort(options='')
     options.concat(" --buffer-size=#{@bufsiz}") if @bufsiz

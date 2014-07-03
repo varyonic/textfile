@@ -9,6 +9,16 @@ class TestTextfile < Minitest::Test
     file
   end
 
+  should "clear a file" do
+    file = infile(['3','2','1'])
+
+    textfile = Textfile.new(file.path)
+    textfile.clear
+
+    file = File.open(textfile)
+    assert_equal([], file.read.split)
+  end
+
   should "sort a simple file" do
     file = infile(['3','2','1'])
 
@@ -32,7 +42,7 @@ class TestTextfile < Minitest::Test
   should "sort non-ASCII characters" do
     file = infile(['Muffler','MX Systems','Müller','MySQL'])
 
-    textfile = Textfile.new(file.path, debug: true)
+    textfile = Textfile.new(file.path)
     textfile.sort
 
     file = File.open(textfile, external_encoding: 'UTF-8')
