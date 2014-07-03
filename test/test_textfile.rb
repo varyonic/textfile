@@ -1,10 +1,15 @@
 require 'helper'
 
 class TestTextfile < Minitest::Test
-  should "sort a simple file" do
+  def infile(data)
     file = Tempfile.new(self.class.name)
-    file.puts(['3','2','1'])
+    file.puts(data)
     file.close
+    file
+  end
+
+  should "sort a simple file" do
+    file = infile(['3','2','1'])
 
     textfile = Textfile.new(file.path)
     textfile.sort
@@ -14,9 +19,7 @@ class TestTextfile < Minitest::Test
   end
 
   should "sort a file with very long records" do
-    file = Tempfile.new(self.class.name)
-    file.puts(['3'*9999,'2','1'])
-    file.close
+    file = infile(['3'*9999,'2','1'])
 
     textfile = Textfile.new(file.path, debug: true, bufsiz: 2*4096)
     textfile.sort
