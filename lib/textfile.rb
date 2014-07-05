@@ -29,6 +29,10 @@ class Textfile < Pathname
     comm(textfile, '-12')
   end
 
+  def merge(textfiles)
+    sh "cat #{textfiles.join(' ')}|tr '\\r' '\\n'>> #{self}"
+  end
+
   # Sorts file and removes any duplicate records.
   def sort(options='')
     options.concat(" --buffer-size=#{@bufsiz}") if @bufsiz
@@ -46,7 +50,7 @@ class Textfile < Pathname
   end
 
   def with_tempcopy
-    tempcopy = Tempfile.new(self.class.name)
+    tempcopy = Tempfile.new(['temp-','.txt'])
     tempcopy.write(self.read)
     tempcopy.close
     yield tempcopy.path

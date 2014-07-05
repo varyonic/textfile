@@ -31,6 +31,18 @@ class TestTextfile < Minitest::Test
     assert_equal(['2','b'], file.read.split)
   end
 
+  should "merge two datasets" do
+    set1 = infile(['3','2','1','b'])
+    set2 = infile(['c','b','a','2'])
+
+    tf1 = Textfile.new(set1.path)
+    tf2 = Textfile.new(set2.path)
+    tf1.merge([tf2]).sort
+
+    file = File.open(tf1)
+    assert_equal(['1','2','3','a','b','c'], file.read.split)
+  end
+
   should "sort a simple file" do
     file = infile(['3','2','1'])
 
