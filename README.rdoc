@@ -3,7 +3,9 @@
 Provides a Set-like wrapper around GNU comm and related textfile utilities.  
 Method names are inspired by Set, though this is not an Enumerable class.
 
-A common use case is to identify differences in an exported dataset from one export to the next where the dataset may exceed 100K rows and each row may exceed 4K characters.
+On OS X see http://apple.stackexchange.com/questions/69223/how-to-replace-mac-os-x-utilities-with-gnu-core-utilities
+
+A common use case is to identify differences between exported datasets where the datasets may exceed 100K rows and each row may exceed 4K characters.
 
 == Contributing to textfile
  
