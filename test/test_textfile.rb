@@ -6,13 +6,12 @@ class TestTextfile < Minitest::Test
     file = Tempfile.new(self.class.name)
     file.puts(records)
     file.close
-    file
+    Textfile.new(file.path)
   end
 
   should "clear a file" do
-    file = infile('3','2','1')
+    textfile = infile('3','2','1')
 
-    textfile = Textfile.new(file.path)
     textfile.clear
 
     file = File.open(textfile.path)
@@ -20,11 +19,9 @@ class TestTextfile < Minitest::Test
   end
 
   should "find the intersection of two datasets" do
-    set1 = infile('3','2','1','b')
-    set2 = infile('c','b','a','2')
+    tf1 = infile('3','2','1','b')
+    tf2 = infile('c','b','a','2')
 
-    tf1 = Textfile.new(set1.path)
-    tf2 = Textfile.new(set2.path)
     tf1.intersection(tf2)
 
     file = File.open(tf1.path)
@@ -32,11 +29,9 @@ class TestTextfile < Minitest::Test
   end
 
   should "merge two datasets" do
-    set1 = infile('3','2','1','b')
-    set2 = infile('c','b','a','2')
+    tf1 = infile('3','2','1','b')
+    tf2 = infile('c','b','a','2')
 
-    tf1 = Textfile.new(set1.path)
-    tf2 = Textfile.new(set2.path)
     tf1.merge(tf2)
 
     file = File.open(tf1.path)
@@ -44,9 +39,8 @@ class TestTextfile < Minitest::Test
   end
 
   should "sort a simple file" do
-    file = infile(['3','2','1'])
+    textfile = infile(['3','2','1'])
 
-    textfile = Textfile.new(file.path)
     textfile.send :sort
 
     file = File.open(textfile.path)
@@ -54,9 +48,8 @@ class TestTextfile < Minitest::Test
   end
 
   should "sort a file with very long records" do
-    file = infile('3'*9999,'2','1')
+    textfile = infile('3'*9999,'2','1')
 
-    textfile = Textfile.new(file.path)
     textfile.send :sort
 
     file = File.open(textfile.path)
@@ -64,9 +57,8 @@ class TestTextfile < Minitest::Test
   end
 
   should "sort non-ASCII characters" do
-    file = infile('Muffler','MX Systems','Müller','MySQL')
+    textfile = infile('Muffler','MX Systems','Müller','MySQL')
 
-    textfile = Textfile.new(file.path)
     textfile.send :sort
 
     file = File.open(textfile.path, external_encoding: 'UTF-8')
