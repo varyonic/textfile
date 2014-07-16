@@ -1,11 +1,6 @@
 require 'tempfile'
 
 class Textfile
-  # OS X comm can't handle lines > 2K bytes.
-  # See http://apple.stackexchange.com/questions/69223/how-to-replace-mac-os-x-utilities-with-gnu-core-utilities
-  COMM_CMD = (RUBY_PLATFORM =~ /darwin/ ? 'gcomm' : 'comm')
-  SORT_CMD = (RUBY_PLATFORM =~ /darwin/ ? 'gsort' : 'sort')
-  UNIQ_CMD = (RUBY_PLATFORM =~ /darwin/ ? 'guniq' : 'uniq')
 
   attr_accessor :path
 
@@ -37,11 +32,17 @@ class Textfile
   end
 
   protected
+  # OS X comm can't handle lines > 2K bytes.
+  # See http://apple.stackexchange.com/questions/69223/how-to-replace-mac-os-x-utilities-with-gnu-core-utilities
+  def comm_cmd() (RUBY_PLATFORM =~ /darwin/ ? 'gcomm' : 'comm') end
+  def sort_cmd() (RUBY_PLATFORM =~ /darwin/ ? 'gsort' : 'sort') end
+  def uniq_cmd() (RUBY_PLATFORM =~ /darwin/ ? 'guniq' : 'uniq') end
+
   def comm(textfile, options)
     self.sort
     textfile.sort
     with_tempcopy do |tempcopy|
-      sh "#{COMM_CMD} #{options} #{tempcopy} #{textfile.path} > #{@path}"
+      sh "#{comm_cmd} #{options} #{tempcopy} #{textfile.path} > #{@path}"
     end
   end
 
@@ -57,7 +58,7 @@ class Textfile
     return self if sorted
     options = "--buffer-size=#{@bufsiz}" if @bufsiz
     with_tempcopy do |tempcopy|
-      sh "#{SORT_CMD} #{options} #{tempcopy} | #{UNIQ_CMD} > #{@path}"
+      sh "#{sort_cmd} #{options} #{tempcopy} | #{uniq_cmd} > #{@path}"
     end
     @sorted = true
     self
