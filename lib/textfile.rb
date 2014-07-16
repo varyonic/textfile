@@ -31,6 +31,11 @@ class Textfile
     self.sort
   end
 
+  # Remove records present in other textfile.
+  def subtract(textfile)
+    comm(textfile, '-23')
+  end
+
   protected
   def comm(textfile, options)
     self.sort
