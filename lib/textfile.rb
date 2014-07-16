@@ -20,12 +20,6 @@ class Textfile
     sh "cat /dev/null > #{@path}"
   end
 
-  def comm(textfile, options)
-    with_tempcopy do |tempcopy|
-      sh "#{COMM_CMD} #{options} #{tempcopy} #{textfile.path} > #{@path}"
-    end
-  end
-
   # Returns a new textfile containing rows common to the current textfile and another.
   # Both self and textfile must be sorted.
   def &(textfile)
@@ -47,6 +41,12 @@ class Textfile
   end
 
   protected
+  def comm(textfile, options)
+    with_tempcopy do |tempcopy|
+      sh "#{COMM_CMD} #{options} #{tempcopy} #{textfile.path} > #{@path}"
+    end
+  end
+
   def sh(cmd)
     cmd = "export LC_COLLATE=#{@lang}; #{cmd}" if @lang
     puts cmd if @debug
