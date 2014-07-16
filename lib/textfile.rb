@@ -8,6 +8,7 @@ class Textfile
   UNIQ_CMD = (RUBY_PLATFORM =~ /darwin/ ? 'guniq' : 'uniq')
 
   attr_accessor :path
+  attr_accessor :sorted
 
   def initialize(path, options = {})
     @debug = options[:debug]
@@ -30,18 +31,13 @@ class Textfile
   # Merges the contents of other textfiles and returns self.
   def merge(*textfiles)
     sh "cat #{textfiles.map(&:path).join(' ')}|tr '\\r' '\\n'>> #{@path}"
-  end
-
-  # Sorts file and removes any duplicate records.
-  def sort(options='')
-    options.concat(" --buffer-size=#{@bufsiz}") if @bufsiz
-    with_tempcopy do |tempcopy|
-      sh "#{SORT_CMD} #{options} #{tempcopy} | #{UNIQ_CMD} > #{@path}"
-    end
+    self.sort
   end
 
   protected
   def comm(textfile, options)
+    self.sort
+    textfile.sort
     with_tempcopy do |tempcopy|
       sh "#{COMM_CMD} #{options} #{tempcopy} #{textfile.path} > #{@path}"
     end
@@ -51,6 +47,17 @@ class Textfile
     cmd = "export LC_COLLATE=#{@lang}; #{cmd}" if @lang
     puts cmd if @debug
     %x[ #{cmd} ]
+    self
+  end
+
+  # Sorts file and removes any duplicate records.
+  def sort
+    return self if sorted
+    options = "--buffer-size=#{@bufsiz}" if @bufsiz
+    with_tempcopy do |tempcopy|
+      sh "#{SORT_CMD} #{options} #{tempcopy} | #{UNIQ_CMD} > #{@path}"
+    end
+    @sorted = true
     self
   end
 

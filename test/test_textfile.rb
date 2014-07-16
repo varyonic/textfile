@@ -25,7 +25,7 @@ class TestTextfile < Minitest::Test
 
     tf1 = Textfile.new(set1.path)
     tf2 = Textfile.new(set2.path)
-    tf1.sort.intersection(tf2.sort)
+    tf1.intersection(tf2)
 
     file = File.open(tf1.path)
     assert_equal(['2','b'], file.read.split)
@@ -37,7 +37,7 @@ class TestTextfile < Minitest::Test
 
     tf1 = Textfile.new(set1.path)
     tf2 = Textfile.new(set2.path)
-    tf1.merge(tf2).sort
+    tf1.merge(tf2)
 
     file = File.open(tf1.path)
     assert_equal(['1','2','3','a','b','c'], file.read.split)
@@ -47,7 +47,7 @@ class TestTextfile < Minitest::Test
     file = infile(['3','2','1'])
 
     textfile = Textfile.new(file.path)
-    textfile.sort
+    textfile.send :sort
 
     file = File.open(textfile.path)
     assert_equal(file.read.split, ['1', '2', '3'])
@@ -57,7 +57,7 @@ class TestTextfile < Minitest::Test
     file = infile('3'*9999,'2','1')
 
     textfile = Textfile.new(file.path)
-    textfile.sort
+    textfile.send :sort
 
     file = File.open(textfile.path)
     assert_equal(file.read.split, ['1', '2', '3'*9999])
@@ -67,7 +67,7 @@ class TestTextfile < Minitest::Test
     file = infile('Muffler','MX Systems','Müller','MySQL')
 
     textfile = Textfile.new(file.path)
-    textfile.sort
+    textfile.send :sort
 
     file = File.open(textfile.path, external_encoding: 'UTF-8')
     assert_equal(file.read.split("\n"), ["MX Systems", "Muffler", "MySQL", "Müller"])
