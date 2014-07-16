@@ -5,6 +5,7 @@ class Textfile
   attr_accessor :path
 
   def initialize(path, options = {})
+    @bufize = options[:bufsiz]
     @debug = options[:debug]
     @lang = options[:lang]
     @path = path
