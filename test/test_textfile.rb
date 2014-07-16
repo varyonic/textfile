@@ -2,15 +2,15 @@
 require 'helper'
 
 class TestTextfile < Minitest::Test
-  def infile(data)
+  def infile(*records)
     file = Tempfile.new(self.class.name)
-    file.puts(data)
+    file.puts(records)
     file.close
     file
   end
 
   should "clear a file" do
-    file = infile(['3','2','1'])
+    file = infile('3','2','1')
 
     textfile = Textfile.new(file.path)
     textfile.clear
@@ -20,8 +20,8 @@ class TestTextfile < Minitest::Test
   end
 
   should "find the intersection of two datasets" do
-    set1 = infile(['3','2','1','b'])
-    set2 = infile(['c','b','a','2'])
+    set1 = infile('3','2','1','b')
+    set2 = infile('c','b','a','2')
 
     tf1 = Textfile.new(set1.path)
     tf2 = Textfile.new(set2.path)
@@ -32,8 +32,8 @@ class TestTextfile < Minitest::Test
   end
 
   should "merge two datasets" do
-    set1 = infile(['3','2','1','b'])
-    set2 = infile(['c','b','a','2'])
+    set1 = infile('3','2','1','b')
+    set2 = infile('c','b','a','2')
 
     tf1 = Textfile.new(set1.path)
     tf2 = Textfile.new(set2.path)
@@ -54,7 +54,7 @@ class TestTextfile < Minitest::Test
   end
 
   should "sort a file with very long records" do
-    file = infile(['3'*9999,'2','1'])
+    file = infile('3'*9999,'2','1')
 
     textfile = Textfile.new(file.path)
     textfile.sort
@@ -64,7 +64,7 @@ class TestTextfile < Minitest::Test
   end
 
   should "sort non-ASCII characters" do
-    file = infile(['Muffler','MX Systems','Müller','MySQL'])
+    file = infile('Muffler','MX Systems','Müller','MySQL')
 
     textfile = Textfile.new(file.path)
     textfile.sort
