@@ -8,7 +8,6 @@ class Textfile
   UNIQ_CMD = (RUBY_PLATFORM =~ /darwin/ ? 'guniq' : 'uniq')
 
   attr_accessor :path
-  attr_accessor :sorted
 
   def initialize(path, options = {})
     @debug = options[:debug]
@@ -58,6 +57,7 @@ class Textfile
     @sorted = true
     self
   end
+  attr_accessor :sorted
 
   def with_tempcopy
     tempcopy = Tempfile.new(['temp-','.txt'])
