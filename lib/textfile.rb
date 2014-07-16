@@ -22,7 +22,7 @@ class Textfile
 
   # Merges the contents of other textfiles and returns self.
   def merge(*textfiles)
-    sh "cat #{textfiles.map(&:path).join(' ')}|tr '\\r' '\\n'>> #{@path}"
+    sh "cat #{textfiles.map(&:path).join(' ')} >> #{@path}"
     self.sort
   end
 
