@@ -9,10 +9,10 @@ class Textfile
 
   attr_accessor :path
 
-  def initialize(p1, options = {})
+  def initialize(path, options = {})
     @debug = options[:debug]
     @lang = options[:lang]
-    @path = p1
+    @path = path
   end
 
   # Removes all elements and returns self.
