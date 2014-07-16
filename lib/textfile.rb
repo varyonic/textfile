@@ -16,17 +16,15 @@ class Textfile
     @path = path
   end
 
-  # Removes all elements and returns self.
+  # Removes all records.
   def clear
     sh "cat /dev/null > #{@path}"
   end
 
-  # Returns a new textfile containing rows common to the current textfile and another.
-  # Both self and textfile must be sorted.
-  def &(textfile)
+  # Removes records not present in other textfile.
+  def intersection(textfile)
     comm(textfile, '-12')
   end
-  alias_method :intersection, :&
 
   # Merges the contents of other textfiles and returns self.
   def merge(*textfiles)
