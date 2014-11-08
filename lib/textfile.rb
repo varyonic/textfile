@@ -29,7 +29,8 @@ class Textfile
 
   # Remove records present in other textfile.
   def subtract(textfile)
-    comm(textfile, '-23')
+    # --nocheck-order, see https://bugzilla.redhat.com/show_bug.cgi?id=1001775
+    comm(textfile, '--nocheck-order -23')
   end
 
   protected
@@ -50,7 +51,7 @@ class Textfile
   def sh(cmd)
     cmd = "export LC_COLLATE=#{@lang}; #{cmd}" if @lang
     puts cmd if @debug
-    %x[ #{cmd} ]
+    %x[ #{cmd} ] # TODO: capture $?
     self
   end
 
