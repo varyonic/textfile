@@ -1,13 +1,20 @@
+require 'logger'
 require 'tempfile'
 
 class Textfile
 
-  attr_accessor :path
+  attr_accessor :path, :logger
 
+  # options
+  # * +:bufsiz+ - Passed to GNU sort to optimize performance.
+  # * +:debug+ - Suppress deletion of temp files.
+  # * +:lang+ - Collation sequence.
+  # * +:logger+ - Logs shell commands and resulting ouput (default: STDOUT).
   def initialize(path, options = {})
     @bufize = options[:bufsiz]
     @debug = options[:debug]
     @lang = options[:lang]
+    @logger = options[:logger] || Logger.new(STDOUT)
     @path = path
   end
 
@@ -50,8 +57,8 @@ class Textfile
 
   def sh(cmd)
     cmd = "export LC_COLLATE=#{@lang}; #{cmd}" if @lang
-    puts cmd if @debug
-    %x[ #{cmd} ] # TODO: capture $?
+    logger.info cmd;
+    logger.info %x[ #{cmd} ] # TODO: capture $?
     self
   end
 
