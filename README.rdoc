@@ -1,5 +1,7 @@
 = textfile
 
+{<img src="https://badge.fury.io/rb/textfile.svg" alt="Gem Version" />}[http://badge.fury.io/rb/textfile]
+
 Provides a Set-like wrapper around GNU comm and related textfile utilities.  
 Method names are inspired by Set, though this is not an Enumerable class.
 
