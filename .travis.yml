@@ -1,0 +1,14 @@
+rvm:
+  - 2.1.0
+  - 2.0.0
+  - 1.9.3
+
+gemfile:
+  - Gemfile
+
+install: "bundle install"
+script: "ruby -Itest ruby -Itest test/test_textfile.rb"
+
+notifications:
+  email:
+    - piers@varyonic.com
