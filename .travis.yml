@@ -7,7 +7,7 @@ gemfile:
   - Gemfile
 
 install: "bundle install"
-script: "ruby -Itest ruby -Itest test/test_textfile.rb"
+script: "ruby -Itest test/test_textfile.rb"
 
 notifications:
   email:
