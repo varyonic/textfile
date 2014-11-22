@@ -62,6 +62,7 @@ class TestTextfile < Minitest::Test
     textfile.send :sort
 
     file = File.open(textfile.path, external_encoding: 'UTF-8')
-    assert_equal(file.read.split("\n"), ["MX Systems", "Muffler", "MySQL", "Müller"])
+    # OSX collation broken?  Works on Linux.
+    assert_equal(file.read.split("\n"), ["Muffler", "Müller", "MX Systems", "MySQL"])
   end
 end
