@@ -3,6 +3,8 @@
 {<img src="https://badge.fury.io/rb/textfile.svg" alt="Gem Version" />}[http://badge.fury.io/rb/textfile]
 {<img src="https://travis-ci.org/varyonic/textfile.svg" />}[https://travis-ci.org/varyonic/textfile]
 {<img src="https://coveralls.io/repos/varyonic/textfile/badge.png" />}[https://coveralls.io/r/varyonic/textfile]
+{<img src="https://gemnasium.com/varyonic/textfile.svg" alt="Dependency Status" />}[https://gemnasium.com/varyonic/textfile]
+{<img src="https://codeclimate.com/github/varyonic/textfile/badges/gpa.svg" />}[https://codeclimate.com/github/varyonic/textfile]
 
 Provides a Set-like wrapper around GNU comm and related textfile utilities.  
 Method names are inspired by Set, though this is not an Enumerable class.
