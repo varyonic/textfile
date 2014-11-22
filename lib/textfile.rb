@@ -13,7 +13,7 @@ class Textfile
   def initialize(path, options = {})
     @bufize = options[:bufsiz]
     @debug = options[:debug]
-    @lang = options[:lang]
+    @lang = options[:lang] || 'en_US.UTF-8'
     @logger = options[:logger] || Logger.new(STDOUT)
     @path = path
   end
