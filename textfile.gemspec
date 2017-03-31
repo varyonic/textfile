@@ -1,11 +1,11 @@
 Gem::Specification.new do |s|
   s.name = "textfile"
-  s.version = "1.0.5"
+  s.version = "1.0.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Piers Chambers"]
-  s.date = "2016-07-07"
+  s.date = "2017-03-31"
   s.description = "Set-like wrapper around GNU comm and related textfile utilities.\n\nA common use case is to identify differences between exported datasets where the datasets may exceed 100K rows and each row may exceed 4K characters."
   s.email = "piers@varyonic.com"
   s.extra_rdoc_files = [
