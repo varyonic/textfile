@@ -11,22 +11,6 @@ rescue Bundler::BundlerError => e
 end
 require 'rake'
 
-require 'jeweler'
-Jeweler::Tasks.new do |gem|
-  # gem is a Gem::Specification... see http://guides.rubygems.org/specification-reference/ for more options
-  gem.name = "textfile"
-  gem.homepage = "http://github.com/varyonic/textfile"
-  gem.license = "MIT"
-  gem.summary = %Q{Set-like wrapper around GNU comm and related textfile utilities.}
-  gem.description = %Q{Set-like wrapper around GNU comm and related textfile utilities.
-
-A common use case is to identify differences between exported datasets where the datasets may exceed 100K rows and each row may exceed 4K characters.}
-  gem.email = "piers@varyonic.com"
-  gem.authors = ["Piers Chambers"]
-  # dependencies defined in Gemfile
-end
-Jeweler::RubygemsDotOrgTasks.new
-
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
   test.libs << 'lib' << 'test'
