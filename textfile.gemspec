@@ -32,8 +32,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency(%q<shoulda>, [">= 0"])
   s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
-  s.add_development_dependency(%q<bundler>, ["~> 1.0"])
-  s.add_development_dependency(%q<jeweler>, ["~> 2.0.1"])
   s.add_development_dependency(%q<coveralls>, [">= 0"])
   s.add_development_dependency(%q<simplecov>, [">= 0"])
 end
