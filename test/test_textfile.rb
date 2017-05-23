@@ -65,4 +65,14 @@ class TestTextfile < Minitest::Test
     # OSX collation broken?  Works on Linux.
     assert_equal(file.read.split("\n"), ["Muffler", "Müller", "MX Systems", "MySQL"])
   end
+
+  should "use an explicitly specified tmpdir" do
+    Dir.mktmpdir do |tmpdir|
+      textfile = infile('3', '2', '1')
+      textfile.tmpdir = tmpdir
+      textfile.debug = true
+      textfile.send :sort
+      assert_equal Dir["#{tmpdir}/temp-*.txt"].size, 1
+    end
+  end
 end

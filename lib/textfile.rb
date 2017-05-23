@@ -3,7 +3,7 @@ require 'tempfile'
 
 class Textfile
 
-  attr_accessor :path, :logger
+  attr_accessor :path, :tmpdir, :logger, :debug
 
   # options
   # * +:bufsiz+ - Passed to GNU sort to optimize performance.
@@ -75,7 +75,7 @@ class Textfile
   attr_accessor :sorted
 
   def with_tempcopy
-    tempcopy = Tempfile.new(['temp-','.txt'])
+    tempcopy = Tempfile.new(['temp-','.txt'], tmpdir)
     tempcopy.write(File.read(@path))
     tempcopy.close
     yield tempcopy.path
