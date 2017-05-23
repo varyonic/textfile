@@ -24,6 +24,4 @@ A common use case is to identify differences between exported datasets where the
 
 == Copyright
 
-Copyright (c) 2014 Piers Chambers. See LICENSE.txt for
-further details.
-
+Copyright (c) 2014-2017 Piers Chambers. See LICENSE.txt for further details.

@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "textfile"
-  s.version = "1.0.6"
+  s.version = "1.1.0"
   s.authors = ["Piers Chambers"]
   s.email = "piers@varyonic.com"
 
