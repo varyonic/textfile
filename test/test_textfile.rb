@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'helper'
 
-class TestTextfile < Minitest::Test
+describe Textfile do
   def infile(*records)
     file = Tempfile.new(self.class.name)
     file.puts(records)
@@ -9,7 +9,7 @@ class TestTextfile < Minitest::Test
     Textfile.new(file.path)
   end
 
-  should "clear a file" do
+  it "clear a file" do
     textfile = infile('3','2','1')
 
     textfile.clear
@@ -18,7 +18,7 @@ class TestTextfile < Minitest::Test
     assert_equal([], file.read.split)
   end
 
-  should "find the intersection of two datasets" do
+  it "find the intersection of two datasets" do
     tf1 = infile('3','2','1','b')
     tf2 = infile('c','b','a','2')
 
@@ -28,7 +28,7 @@ class TestTextfile < Minitest::Test
     assert_equal(['2','b'], file.read.split)
   end
 
-  should "merge two datasets" do
+  it "merge two datasets" do
     tf1 = infile('3','2','1','b')
     tf2 = infile('c','b','a','2')
 
@@ -38,7 +38,7 @@ class TestTextfile < Minitest::Test
     assert_equal(['1','2','3','a','b','c'], file.read.split)
   end
 
-  should "sort a simple file" do
+  it "sort a simple file" do
     textfile = infile(['3','2','1'])
 
     textfile.send :sort
@@ -47,7 +47,7 @@ class TestTextfile < Minitest::Test
     assert_equal(file.read.split, ['1', '2', '3'])
   end
 
-  should "sort a file with very long records" do
+  it "sort a file with very long records" do
     textfile = infile('3'*9999,'2','1')
 
     textfile.send :sort
@@ -56,7 +56,7 @@ class TestTextfile < Minitest::Test
     assert_equal(file.read.split, ['1', '2', '3'*9999])
   end
 
-  should "sort non-ASCII characters" do
+  it "sort non-ASCII characters" do
     textfile = infile('Muffler','MX Systems','Müller','MySQL')
 
     textfile.send :sort
@@ -66,7 +66,7 @@ class TestTextfile < Minitest::Test
     assert_equal(file.read.split("\n"), ["Muffler", "Müller", "MX Systems", "MySQL"])
   end
 
-  should "use an explicitly specified tmpdir" do
+  it "use an explicitly specified tmpdir" do
     Dir.mktmpdir do |tmpdir|
       textfile = infile('3', '2', '1')
       textfile.tmpdir = tmpdir

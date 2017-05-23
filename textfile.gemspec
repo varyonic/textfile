@@ -31,6 +31,6 @@ Gem::Specification.new do |s|
     "textfile.gemspec"
   ]
 
-  s.add_development_dependency "shoulda", '~> 3.0'
+  s.add_development_dependency "minitest", '~> 5.0'
   s.add_development_dependency "rdoc", "~> 3.12"
 end
